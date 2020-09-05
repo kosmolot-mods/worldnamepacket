@@ -1,0 +1,12 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "pl.kosma.worldnamepacket.mixins",
+  "compatibilityLevel": "JAVA_8",
+  "mixins": [
+    "ServerWorldAccessor"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

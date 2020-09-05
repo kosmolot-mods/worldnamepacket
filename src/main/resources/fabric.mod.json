@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "id": "worldnamepacket",
+  "version": "${version}",
+  "name": "World Name Packet",
+  "description": "Fabric server-side companion mod for VoxelMap",
+  "authors": [
+    "Kosma Moczek <kosma@kosma.pl>"
+  ],
+  "contact": {
+    "sources": "https://github.com/kosma/worldnamepacket-fabric"
+  },
+  "license": "MIT",
+  "icon": "assets/pl.kosma.worldnamepacket/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "pl.kosma.worldnamepacket.WorldNamePacket"
+    ],
+    "client": [],
+    "server": []
+  },
+  "mixins": [
+    "worldnamepacket.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.9.3",
+    "fabric": "*"
+  }
+}
