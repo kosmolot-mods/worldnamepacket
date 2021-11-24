@@ -17,10 +17,10 @@ public class WorldNamePacket implements ModInitializer {
     @Override
     public void onInitialize() {
         ServerSidePacketRegistry.INSTANCE.register(CHANNEL_NAME, (packetContext, attachedData) -> {
-        	ServerWorld serverWorld = ((ServerPlayerEntity) packetContext.getPlayer()).getServerWorld();
+        	ServerWorld serverWorld = ((ServerPlayerEntity) packetContext.getPlayer()).getWorld();
         	MinecraftDedicatedServer dedicatedServer = (MinecraftDedicatedServer) serverWorld.getServer(); 
         	String levelName = dedicatedServer.getLevelName();   
-        	System.out.println("levelName: "+levelName);
+        	System.out.println("WorldNamePacket: sending levelName: "+levelName);
         	
         	PacketByteBuf passedData = new PacketByteBuf(Unpooled.buffer());
         	passedData.writeByte(PACKET_ID);
