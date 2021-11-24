@@ -23,7 +23,7 @@ Drop the mod in your mods folder on the **server side**. If you're using a proxy
 (Bungecord/Velocity/etc.) make sure to have it installed on all servers. There are
 both Spigot and Fabric versions available:
 
-* [Download Fabric mod](https://www.curseforge.com/minecraft/mc-mods/worldnamepacket-fabric).
+* [Download Fabric mod](https://www.curseforge.com/minecraft/mc-mods/worldnamepacket-fabric)
 * [Download Spigot plugin](https://www.spigotmc.org/resources/worldnamepacket.83572/)
 
 ## Configuration
