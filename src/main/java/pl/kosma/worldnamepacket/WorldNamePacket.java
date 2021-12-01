@@ -1,31 +1,45 @@
 package pl.kosma.worldnamepacket;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.network.ServerSidePacketRegistry;
+import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.server.dedicated.MinecraftDedicatedServer;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Identifier;
 
-import io.netty.buffer.Unpooled;
 
 public class WorldNamePacket implements ModInitializer {
+	public static final Logger LOGGER = LogManager.getLogger();
     static byte PACKET_ID = 0;
-    public static final Identifier CHANNEL_NAME = new Identifier("worldinfo", "world_id");
-
+    public static final Identifier CHANNEL_NAME_VOXELMAP = new Identifier("worldinfo", "world_id");
+    public static final Identifier CHANNEL_NAME_XAEROMAP = new Identifier("xaeroworldmap", "main");
+    
     @Override
     public void onInitialize() {
-        ServerSidePacketRegistry.INSTANCE.register(CHANNEL_NAME, (packetContext, attachedData) -> {
-        	ServerWorld serverWorld = ((ServerPlayerEntity) packetContext.getPlayer()).getWorld();
-        	MinecraftDedicatedServer dedicatedServer = (MinecraftDedicatedServer) serverWorld.getServer(); 
-        	String levelName = dedicatedServer.getLevelName();   
-        	System.out.println("WorldNamePacket: sending levelName: "+levelName);
-        	
-        	PacketByteBuf passedData = new PacketByteBuf(Unpooled.buffer());
-        	passedData.writeByte(PACKET_ID);
-        	passedData.writeByteArray(levelName.getBytes());
-        	ServerSidePacketRegistry.INSTANCE.sendToPlayer(packetContext.getPlayer(), CHANNEL_NAME, passedData);
-        });
+    	ServerPlayNetworking.registerGlobalReceiver(CHANNEL_NAME_VOXELMAP,
+    			(server, player, handler, buf, responseSender) -> { sendResponse(player, CHANNEL_NAME_VOXELMAP); });
+    }
+    
+    static public void onServerWorldInfo(ServerPlayerEntity player)
+    {
+    	sendResponse(player, CHANNEL_NAME_XAEROMAP);
+    }
+
+    static private void sendResponse(ServerPlayerEntity player, Identifier channel)
+    {
+    	ServerWorld serverWorld = player.getWorld();
+    	MinecraftDedicatedServer dedicatedServer = (MinecraftDedicatedServer) serverWorld.getServer(); 
+    	String levelName = dedicatedServer.getLevelName();   
+    	WorldNamePacket.LOGGER.info("WorldNamePacket: ["+channel+"] sending levelName: " + levelName);
+    	
+    	PacketByteBuf response = PacketByteBufs.create();
+    	response.writeByte(PACKET_ID);
+    	response.writeByteArray(levelName.getBytes());
+    	ServerPlayNetworking.send(player, channel, response);
     }
 }

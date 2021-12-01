@@ -1,0 +1,12 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "pl.kosma.worldnamepacket.mixins",
+  "compatibilityLevel": "JAVA_16",
+  "mixins": [
+    "MixinPlayerManager"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
