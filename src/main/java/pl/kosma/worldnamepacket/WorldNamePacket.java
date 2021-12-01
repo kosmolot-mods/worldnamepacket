@@ -24,7 +24,10 @@ public class WorldNamePacket implements ModInitializer {
     	ServerPlayNetworking.registerGlobalReceiver(CHANNEL_NAME_VOXELMAP,
     			(server, player, handler, buf, responseSender) -> { sendResponse(player, CHANNEL_NAME_VOXELMAP); });
     }
-    
+
+    /**
+     * Xaero's Map requires the world name to be send unprompted upon world join/change.
+     */
     static public void onServerWorldInfo(ServerPlayerEntity player)
     {
     	sendResponse(player, CHANNEL_NAME_XAEROMAP);
@@ -32,7 +35,7 @@ public class WorldNamePacket implements ModInitializer {
 
     static private void sendResponse(ServerPlayerEntity player, Identifier channel)
     {
-    	ServerWorld serverWorld = player.getWorld();
+    	ServerWorld serverWorld = player.getServerWorld();
     	MinecraftDedicatedServer dedicatedServer = (MinecraftDedicatedServer) serverWorld.getServer(); 
     	String levelName = dedicatedServer.getLevelName();   
     	WorldNamePacket.LOGGER.info("WorldNamePacket: ["+channel+"] sending levelName: " + levelName);

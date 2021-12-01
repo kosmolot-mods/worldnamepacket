@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "id": "worldnamepacket",
   "version": "${version}",
-  "name": "World Name Packet",
+  "name": "WorldNamePacket",
   "description": "Fabric server-side companion mod for VoxelMap",
   "authors": [
     "Kosma Moczek <kosma@kosma.pl>"
@@ -24,7 +24,7 @@
   	"worldnamepacket.mixins.json"
   ],
   "depends": {
-    "fabricloader": ">=0.12.6",
+    "fabricloader": ">=0.12.8",
     "fabric": ">=0.43.1"
   }
 }

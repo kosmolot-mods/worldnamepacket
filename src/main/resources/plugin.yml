@@ -1,0 +1,4 @@
+name: WorldNamePacket
+main: pl.kosma.worldnamepacket.SpigotPlugin
+version: ${version}
+api-version: 1.17.1
