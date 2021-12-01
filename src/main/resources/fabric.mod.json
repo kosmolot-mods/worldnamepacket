@@ -3,19 +3,19 @@
   "id": "worldnamepacket",
   "version": "${version}",
   "name": "WorldNamePacket",
-  "description": "Fabric server-side companion mod for VoxelMap",
+  "description": "Companion mod for client-side mapping mods",
   "authors": [
     "Kosma Moczek <kosma@kosma.pl>"
   ],
   "contact": {
-    "sources": "https://github.com/kosma/worldnamepacket-fabric"
+    "sources": "https://github.com/kosma/worldnamepacket"
   },
   "license": "MIT",
   "icon": "assets/pl.kosma.worldnamepacket/icon.png",
   "environment": "*",
   "entrypoints": {
     "main": [
-      "pl.kosma.worldnamepacket.WorldNamePacket"
+      "pl.kosma.worldnamepacket.FabricMod"
     ],
     "client": [],
     "server": []

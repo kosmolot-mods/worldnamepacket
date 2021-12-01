@@ -8,13 +8,13 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import net.minecraft.server.PlayerManager;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
-import pl.kosma.worldnamepacket.WorldNamePacket;
+import pl.kosma.worldnamepacket.FabricMod;
 
 
 @Mixin(PlayerManager.class)
 public class MixinPlayerManager {
 	@Inject(at = @At("HEAD"), method = "sendWorldInfo(Lnet/minecraft/server/network/ServerPlayerEntity;Lnet/minecraft/server/world/ServerWorld;)V")
 	public void onSendWorldInfo(ServerPlayerEntity player, ServerWorld world, CallbackInfo info) {
-		WorldNamePacket.onServerWorldInfo(player);
+		FabricMod.onServerWorldInfo(player);
 	}
 }
