@@ -52,7 +52,7 @@ public class SpigotPlugin extends JavaPlugin implements Listener, PluginMessageL
 		}
 
 		byte[] worldNameBytes = worldNameString.getBytes();
-		this.getLogger().info("WorldNamePacket: ["+channel+"] sending levelName: " + worldNameString);
+		this.getLogger().info("["+channel+"] sending levelName: " + worldNameString);
 		ByteBuffer buffer = ByteBuffer.allocate(2+worldNameBytes.length)
 				                      .put(WorldNamePacket.PACKET_ID)
 				                      .put((byte) worldNameBytes.length)
