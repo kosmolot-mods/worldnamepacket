@@ -1,12 +1,12 @@
 package pl.kosma.worldnamepacket;
 
+import net.minecraft.util.PacketByteBuf;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
-import net.minecraft.network.PacketByteBuf;
 import net.minecraft.server.dedicated.MinecraftDedicatedServer;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
@@ -33,7 +33,7 @@ public class FabricMod implements ModInitializer {
     static private void sendResponse(ServerPlayerEntity player, String channel, @Nullable PacketByteBuf buf)
     {
 		String levelName = ((MinecraftDedicatedServer) player.getServerWorld().getServer()).getLevelName();
-        byte[] requestBytes = (buf != null) ? buf.getWrittenBytes() : new byte[0];
+        byte[] requestBytes = (buf != null) ? buf.slice().array() : new byte[0];
         byte[] responseBytes = WorldNamePacket.formatResponsePacket(requestBytes, levelName);
 
 		PacketByteBuf responsePacket = PacketByteBufs.create();
