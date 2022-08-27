@@ -12,6 +12,7 @@ group = project.maven_group
 
 repositories {
 	maven { url = 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/' }
+	maven { url 'https://repo.papermc.io/repository/maven-public/' }
 }
 
 minecraft {
@@ -26,6 +27,9 @@ dependencies {
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
 	compileOnly 'org.spigotmc:spigot-api:1.17.1-R0.1-SNAPSHOT'
+
+	compileOnly "com.velocitypowered:velocity-api:${project.velocity_version}"
+	annotationProcessor "com.velocitypowered:velocity-api:${project.velocity_version}"
 }
 
 processResources {
