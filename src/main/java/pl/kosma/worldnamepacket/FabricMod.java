@@ -9,8 +9,8 @@ import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.server.dedicated.MinecraftDedicatedServer;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Identifier;
+import org.jetbrains.annotations.Nullable;
 
 
 public class FabricMod implements ModInitializer {
@@ -19,7 +19,7 @@ public class FabricMod implements ModInitializer {
     @Override
     public void onInitialize() {
     	ServerPlayNetworking.registerGlobalReceiver(new Identifier(WorldNamePacket.CHANNEL_NAME_VOXELMAP),
-    			(server, player, handler, buf, responseSender) -> { sendResponse(player, WorldNamePacket.CHANNEL_NAME_VOXELMAP); });
+				(server, player, handler, buf, responseSender) -> { sendResponse(player, WorldNamePacket.CHANNEL_NAME_VOXELMAP, buf); });
     }
 
     /**
@@ -27,19 +27,21 @@ public class FabricMod implements ModInitializer {
      */
     static public void onServerWorldInfo(ServerPlayerEntity player)
     {
-    	sendResponse(player, WorldNamePacket.CHANNEL_NAME_XAEROMAP);
+		sendResponse(player, WorldNamePacket.CHANNEL_NAME_XAEROMAP, null);
     }
 
-    static private void sendResponse(ServerPlayerEntity player, String channel)
+    static private void sendResponse(ServerPlayerEntity player, String channel, @Nullable PacketByteBuf buf)
     {
-    	ServerWorld serverWorld = player.getServerWorld();
-    	MinecraftDedicatedServer dedicatedServer = (MinecraftDedicatedServer) serverWorld.getServer(); 
-    	String levelName = dedicatedServer.getLevelName();   
-    	FabricMod.LOGGER.info("WorldNamePacket: ["+channel+"] sending levelName: " + levelName);
-    	
-    	PacketByteBuf response = PacketByteBufs.create();
-    	response.writeByte(WorldNamePacket.PACKET_ID);
-    	response.writeByteArray(levelName.getBytes());
-    	ServerPlayNetworking.send(player, new Identifier(channel), response);
+		String levelName = ((MinecraftDedicatedServer) player.getServerWorld().getServer()).getLevelName();
+        byte[] requestBytes = (buf != null) ? buf.getWrittenBytes() : new byte[0];
+        byte[] responseBytes = WorldNamePacket.formatResponsePacket(requestBytes, levelName);
+
+		PacketByteBuf responsePacket = PacketByteBufs.create();
+		responsePacket.writeBytes(responseBytes);
+
+        FabricMod.LOGGER.debug("request: " + WorldNamePacket.byteArrayToHexString(requestBytes));
+        FabricMod.LOGGER.debug("response: " + WorldNamePacket.byteArrayToHexString(responseBytes));
+		FabricMod.LOGGER.info("WorldNamePacket: ["+channel+"] sending levelName: " + levelName);
+		ServerPlayNetworking.send(player, new Identifier(channel), responsePacket);
     }
 }
