@@ -4,4 +4,4 @@ description: Companion plugin for client-side mapping mods
 author: Kosma Moczek <kosma@kosma.pl>
 website: https://github.com/kosma/worldnamepacket
 version: ${version}
-api-version: 1.17
+api-version: 1.14

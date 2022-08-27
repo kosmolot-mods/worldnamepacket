@@ -26,7 +26,7 @@ dependencies {
 
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
-	compileOnly 'org.spigotmc:spigot-api:1.17.1-R0.1-SNAPSHOT'
+	compileOnly "org.spigotmc:spigot-api:${project.spigot_version}"
 
 	compileOnly "com.velocitypowered:velocity-api:${project.velocity_version}"
 	annotationProcessor "com.velocitypowered:velocity-api:${project.velocity_version}"
