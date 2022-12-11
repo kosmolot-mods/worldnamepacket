@@ -3,12 +3,26 @@
 [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/Y8Y726QMH)
 
 Server-side companion for mapping mods. Automatically sets world name
-in Multiworld mode - no more manual configuration and "world not recognized"
-messages.
+in Multiworld mode - no more manual configuration, "world not recognized"
+messages and overwritten/overlapping map data.
 
-Supported platforms: Fabric, Spigot.
+## Supported servers
 
-Supported mapping mods: VoxelMap, Xaero's Map, JourneyMap, Rei's Minimap.
+Supported mapping mods:
+
+- [JourneyMap](https://www.curseforge.com/minecraft/mc-mods/journeymap)
+- [Xaero's World Map](https://www.curseforge.com/minecraft/mc-mods/xaeros-world-map)
+- [VoxelMap](https://www.curseforge.com/minecraft/mc-mods/voxelmap)
+- Probably also others if they use the same protocol.
+
+Supported server platforms:
+
+- Spigot/Paper: 1.8 ÷ 1.19.1 (and later)
+- Fabric: 1.14 ÷ 1.19.1 (and later)
+- Velocity: 3.x.x, all Minecraft versions
+- (Forge is not supported because they don't have a version-independent API.)
+
+The mod is server-only.
 
 ## Functionality
 
@@ -19,6 +33,12 @@ happen on many modded servers - but also vanilla servers if there are behind
 a proxy (Bungeecord/Velocity/etc).
 
 This tool solves this problem by telling the mapping mod which world it's connected to.
+
+## Installation
+
+There are two ways of installing the plugin:
+
+1. Install the plugin on the server. 
 
 ## Installation
 
